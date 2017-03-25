@@ -809,7 +809,8 @@ class FPDF(object):
                 dx = self.c_margin
             if (self.color_flag): s += 'q ' + self.text_color + ' '
 
-            # If multibyte, Tw has no effect - do word spacing using an adjustment before each space
+            # If multibyte, Tw has no effect - do word spacing using an 
+            # adjustment before each space
             if (self.ws and self.unifontsubset):
                 for uni in UTF8StringToArray(txt):
                     self.current_font['subset'].append(uni)
@@ -1061,7 +1062,8 @@ class FPDF(object):
             self.cell(l / 1000.0 * self.font_size, h, substr(s, j), 0, 0, '', 0, link)
 
     @check_page
-    def image(self, name, x = None, y = None, w = 0, h = 0, type = '', link = ''):
+    def image(self, name, x = None, y = None, w = 0, h = 0,
+              type = '', link = '', is_mask = False, mask_image = None):
         "Put an image on the page"
         if not name in self.images:
             # First use of image, get info
@@ -1100,6 +1102,13 @@ class FPDF(object):
                     self.error('Unsupported image type: ' + type)
                 info = getattr(self, mtd)(name)
             info['i'] = len(self.images) + 1
+
+            # is_mask and mask_image
+            if is_mask and info['cs'] != 'DeviceGray':
+                self.error('Mask must be a gray scale image')
+            if mask_image:
+                info['masked'] = mask_image
+
             self.images[name] = info
         else:
             info = self.images[name]
@@ -1125,12 +1134,16 @@ class FPDF(object):
             self.y += h
 
         if x is None: x = self.x
-        self._out(sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /I%d Do Q',
-                          w * self.k, h                  * self.k,
-                          x * self.k, (self.h - (y + h)) * self.k,
-                          info['i']))
+
+        if not is_mask:
+            self._out(sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /I%d Do Q',
+                              w * self.k, h                  * self.k,
+                              x * self.k, (self.h - (y + h)) * self.k,
+                              info['i']))
         if (link):
             self.link(x, y, w, h, link)
+
+        return info
 
     @check_page
     def ln(self, h = ''):
@@ -1536,7 +1549,7 @@ class FPDF(object):
         else:
             cw127fname = None
         font_dict = load_cache(cw127fname)
-        if font_dict is None:    
+        if font_dict is None:
             rangeid        = 0
             range_         = {}
             range_interval = {}
@@ -1649,6 +1662,10 @@ class FPDF(object):
             self._out('/Subtype /Image')
             self._out('/Width ' + str(info['w']))
             self._out('/Height ' + str(info['h']))
+
+            # set mask object for this image
+            if 'masked' in info:
+                self._out('/SMask ' + str(info['masked']['n'] + 1) + ' 0 R')
 
             if (info['cs'] == 'Indexed'):
                 self._out('/ColorSpace [/Indexed /DeviceRGB '  + \
@@ -1826,7 +1843,7 @@ class FPDF(object):
             if orientation == 'P':
                 self.w_pt = self.fw_pt
                 self.h_pt = self.fh_pt
-            else:                    
+            else:
                 self.w_pt = self.fh_pt
                 self.h_pt = self.fw_pt
             self.w = self.w_pt / self.k
@@ -2074,9 +2091,9 @@ class FPDF(object):
         # Add a line to the document
         if PY3K and isinstance(s, bytes):
             # manage binary data as latin1 until PEP461-like function is implemented
-            s = s.decode("latin1")          
+            s = s.decode("latin1")
         elif not PY3K and isinstance(s, unicode):
-            s = s.encode("latin1")    # default encoding (font name and similar)      
+            s = s.encode("latin1")    # default encoding (font name and similar)
         elif not isinstance(s, basestring):
             s = str(s)
         if (self.state == 2):
