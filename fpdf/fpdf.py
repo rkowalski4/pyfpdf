@@ -1137,7 +1137,8 @@ class FPDF(object):
                       h, substr(s, j), 0, 0, '', 0, link)
 
     @check_page
-    def image(self, name, x = None, y = None, w = 0, h = 0, type = '', link = ''):  # noqa: E501
+    def image(self, name, x = None, y = None, w = 0, h = 0, type = '',
+              link = '', file = None):
         "Put an image on the page"
         if name not in self.images:
             # First use of image, get info
@@ -1151,8 +1152,8 @@ class FPDF(object):
             type = type.lower()
             image_is_jpeg = lambda : type == 'jpg' or type == 'jpeg'
 
-            if (image_is_jpeg()): info = self._parsejpg(name)
-            elif (type == 'png'): info = self._parsepng(name)
+            if (image_is_jpeg()): info = self._parsejpg(name, file)
+            elif (type == 'png'): info = self._parsepng(name, file)
             else:
                 # Allow for additional formats
                 # maybe the image is not showing the correct extension,
@@ -1166,7 +1167,7 @@ class FPDF(object):
                 ]
                 for pf in parsing_functions:
                     try:
-                        info = pf(name)
+                        info = pf(name, file)
                         succeed_parsing = True
                         break
                     except:
@@ -1176,7 +1177,7 @@ class FPDF(object):
                     mtd = '_parse' + type
                     if not hasattr(self, mtd):
                         self.error('Unsupported image type: ' + type)
-                    info = getattr(self, mtd)(name)
+                    info = getattr(self, mtd)(name, file)
                 mtd = '_parse' + type
 
                 if not hasattr(self, mtd):
@@ -1981,11 +1982,15 @@ class FPDF(object):
         else:
             self.error("Unknown resource loading reason \"%s\"" % reason)
 
-    def _parsejpg(self, filename):
+    def _parsejpg(self, filename, file):
         # Extract info from a JPEG file
         f = None
         try:
-            f = self.load_resource("image", filename)
+            if file:
+                f = file
+                f.seek(0)
+            if not file:
+                f = self.load_resource("image", filename)
             while True:
                 markerHigh, markerLow = struct.unpack('BB', f.read(2))
 
@@ -2030,7 +2035,7 @@ class FPDF(object):
             'f'  : 'DCTDecode', 'data' : data
         }
 
-    def _parsegif(self, filename):
+    def _parsegif(self, filename, file):
         # Extract info from a GIF file (via PNG conversion)
         if Image is None:
             self.error('PIL is required for GIF support')
@@ -2052,9 +2057,13 @@ class FPDF(object):
             os.unlink(tmp)
         return info
 
-    def _parsepng(self, filename):
+    def _parsepng(self, filename, file):
         # Extract info from a PNG file
-        f = self.load_resource("image", filename)
+        if file:
+            f = file
+            f.seek(0)
+        if not file:
+            f = self.load_resource("image", filename)
 
         # Check signature
         magic = f.read(8).decode("latin1")
