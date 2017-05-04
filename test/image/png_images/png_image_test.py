@@ -44,6 +44,7 @@ for image in images:
   i.save(image_data, format = 'png')
   images_data_in_memory[image] = image_data
 
+@unittest.skip("not current with version control")
 class InsertPNGSuiteMemory(unittest.TestCase):
   def test_insert_png_memory(self):
     pdf = fpdf.FPDF(unit = 'pt')

@@ -34,7 +34,8 @@ from .ttfonts import TTFontFile
 from .fonts import fpdf_charwidths
 from .php import substr, sprintf, UTF8ToUTF16BE, UTF8StringToArray  # print_r
 from .py3k import (
-    PY3K, pickle, urlopen, BytesIO, Image, basestring, unicode, b, hashpath
+    PY3K, pickle, urlopen, BytesIO, Image, PngImagePlugin, basestring,
+    unicode, b, hashpath
 )
 
 # Global variables
@@ -1138,8 +1139,36 @@ class FPDF(object):
 
     @check_page
     def image(self, name, x = None, y = None, w = 0, h = 0, type = '',
-              link = '', file = None):
-        "Put an image on the page"
+              link = '', file_ = None):
+        """Put an image on the page.
+
+        Maintains a cache of image items with properties:
+        ['bpc', 'w', 'f', 'cs', 'h', 'trns', 'pal', 'dp', 'data']
+        * w    = width
+        <type 'int'>
+        * h    = height
+        <type 'int'>
+        * bpc  = bits per channel
+        <type 'int'>
+        * f    = ??: {FlateDecode for PNG, DCTDecode for JPG}
+        <type 'str'>
+        * cs   = column space (DeviceRGB, DeviceCMYK, DeviceGray, Indexed)
+        <type 'str'>
+        * pal  = palette
+        <type 'str'>
+        * trns = transparency
+        [<type 'str'>]
+        * dp   = string combining: cs, bpc
+        * data = raw data (have to experiment)
+
+        Requires that either an image name to either contain a file extension,
+        or for the type parameter to the function to be provided.
+
+        Errors for IO, corrupt, or unsupported image.
+
+        As of this writing, urlopen code has not been reimplemented.
+        """
+        
         if name not in self.images:
             # First use of image, get info
             if (type == ''):
@@ -1152,37 +1181,116 @@ class FPDF(object):
             type = type.lower()
             image_is_jpeg = lambda : type == 'jpg' or type == 'jpeg'
 
-            if (image_is_jpeg()): info = self._parsejpg(name, file)
-            elif (type == 'png'): info = self._parsepng(name, file)
-            else:
-                # Allow for additional formats
-                # maybe the image is not showing the correct extension,
-                # but the header is OK,
-                succeed_parsing = False
-                # try all the parsing functions
-                parsing_functions = [
-                    self._parsejpg,
-                    self._parsepng,
-                    self._parsegif
-                ]
-                for pf in parsing_functions:
-                    try:
-                        info = pf(name, file)
-                        succeed_parsing = True
-                        break
-                    except:
-                        pass
-                # last resource
-                if not succeed_parsing:
-                    mtd = '_parse' + type
-                    if not hasattr(self, mtd):
-                        self.error('Unsupported image type: ' + type)
-                    info = getattr(self, mtd)(name, file)
-                mtd = '_parse' + type
+            #########################################################################################################
+            """from six.moves.urllib.parse import urlparse
+            def is_url(url):
+                return urlparse(url).scheme != ""
 
-                if not hasattr(self, mtd):
-                    self.error('Unsupported image type: ' + type)
-                info = getattr(self, mtd)(name)
+            if is_url(name) and not file_:
+                raise RuntimeError("Inserting from internet unsupported")"""
+
+            info = {}
+            info['f'] = 'DCTDecode' if image_is_jpeg() else 'FlateDecode'
+            image_obj = Image.open(file_ if file_ is not None else name)
+            info['w'] = image_obj.width
+            info['h'] = image_obj.height
+
+            bits_per_component = None
+            color_type = None
+            if image_obj.format.lower() == "png":
+                fp = image_obj.fp
+                fp.seek(8)  # do not verify magic?
+                png_file = PngImagePlugin.PngStream(fp)
+                while True:
+                    chunk = png_file.read()
+                    try:
+                        _ = png_file.call(*chunk)
+                        # if chunk[1].decode('ascii') == 'IHDR':
+                            # bits_per_component = PngImagePlugin.i8(_[8])
+                            # color_type = PngImagePlugin.i8(_[9])
+                        png_file.crc(chunk[0], _)
+                    except EOFError as e:
+                        break
+                    except AttributeError as e:
+                        if 'vpAg' in e.message:
+                            # from PIL import ImageFile
+                            # ImageFile._safe_read(png_file.fp, chunk[2])
+                            # continue
+                            print ("helo")
+                        # print ("helo")
+                
+                info['trns'] = png_file.im_info.get('transparency', '')
+                # print png_file.im_info.get('transparency'. '')
+                
+                info['bpc'] = self.im_mode
+                # https://www.w3.org/TR/PNG/#11IHDR
+                # ct : ([allowed bit depths], description, fpdf string)
+                info['cs'] = {
+                    0: ([1, 2, 4, 8, 16, ], 'Greyscale',    'DeviceGray'),
+                    2: ([8, 16, ], 'Truecolour',            'DeviceRGB'),
+                    3: ([1, 2, 4, 8, ], 'Indexed-colour',   'Indexed'),
+                    4: ([8, 16, ], 'Greyscale with alpha',  'DeviceGray'),
+                    6: ([8, 16, ], 'Truecolour with alpha', 'DeviceRGB')
+                }.get(png_file.im_rawmode)[2]
+
+                # indexed means it has a palette:
+                if png_file.im_rawmode == 3:
+                    info['pal'] = png_file.im_palette[1]
+
+                def make_dp(column_space, bpc, width):
+                    dp = '/Predictor 15 /Colors '
+                    dp += '3' if column_space == 'DeviceRGB' else '1'
+                    dp += ' /BitsPerComponent ' + str(bpc)
+                    dp += ' /Columns ' + str(width) + ''
+                    return dp
+
+                info['dp'] = make_dp(info['cs'], info['bpc'], info['w'])
+
+
+                #########################################################################################################
+
+                """
+                png = PngImagePlugin.PngStream(fp)
+
+                while True:
+                    cid, pos, length = png.read()
+                    # chunks.append(cid)
+                    print (cid, pos, length)
+                    try:
+                        s = png.call(cid, pos, length)
+                    except EOFError:
+                        break
+                    png.crc(cid, s)
+                """
+
+                #########################################################################################################
+                
+                """
+                # TODO: move map out of fxn, move fxn out of class/method
+                def depth_from_image_mode(mode):
+                    "http://effbot.org/imagingbook/concepts.htm"
+                    # mode: (pixel tuple size, pixel bit depth, description)
+                    modes_depth_map = {
+                        '1':     (1, 1, 'black and white, one pixel per byte'),
+                        'L':     (1, 8, 'black and white'),
+                        'P':     (1, 8, 'mapped to other mode using a palette'),
+                        'RGB':   (3, 8, 'true colour'),
+                        'RGBA':  (4, 8, 'true colour with transparency mask'),
+                        'CMYK':  (4, 8, 'colour separation'),
+                        'YCbCr': (3, 8, 'colour video format'),
+                        'I':     (1, 32, 'signed integer pixels'),
+                        'F':     (1, 32, 'floating point pixels')
+                    }
+                    return modes_depth_map.get(mode, None)[1]
+                info['bpc'] = depth_from_image_mode(image_obj.mode)
+
+                info['pal'] = ''
+                if image_obj.getpalette() is not None:
+                    info['pal'] = image_obj.im.get_palette()
+                """
+
+                #########################################################################################################
+
             info['i'] = len(self.images) + 1
             self.images[name] = info
         else:
