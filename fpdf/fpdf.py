@@ -1151,6 +1151,7 @@ class FPDF(object):
     def image(self, name, x = None, y = None, w = 0, h = 0, type = '', link = ''):  # noqa: E501
         "Put an image on the page"
         if name not in self.images:
+            # TODO: typecheck and hash for content
             info = get_img_info(image_parsing_load_resource(name))
             info['i'] = len(self.images) + 1
             self.images[name] = info
