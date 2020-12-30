@@ -1100,7 +1100,7 @@ class FPDF(object):
 
         if split_only:
             # restore writing functions
-            self._out, self.add_page = _out, _add_page 
+            self._out, self.add_page = _out, _add_page
             self.set_xy(*location)  # restore location
             return text_cells
 
@@ -1358,7 +1358,7 @@ class FPDF(object):
                         # else:                                h = h_pt
                         annots += sprintf('/Dest [%d 0 R /XYZ 0 %.2f null]>>',
                                           1 + 2 * l[0], h_pt - l[1] * self.k)
-                
+
                 # End links list
                 self._out(annots + ']')
             if self.pdf_version > '1.3':
@@ -2072,7 +2072,9 @@ class FPDF(object):
             '+': 'nwnnnwnwn', '%': 'nnnwnwnwn',
         }
         self.set_fill_color(0)
-        for c in txt.upper():
+        code = '*' + txt.upper() + '*'
+
+        for c in code:
             if c not in chars:
                 raise RuntimeError('Invalid char "%s" for Code39' % c)
             for i, d in enumerate(chars[c]):
@@ -2106,4 +2108,3 @@ def _sizeof_fmt(num, suffix='B'):
 __all__ = [
     'FPDF', 'load_cache', 'get_page_format', 'PAGE_FORMATS'
 ]
-
