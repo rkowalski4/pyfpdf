@@ -28,12 +28,12 @@
   * [add_font](reference/add_font.md) - add a new font
   * [set_font](reference/set_font.md) - set font
   * [set_font_size](reference/set_font_size.md) - set font size
-  
+
 #### Links ####
   * [link](reference/link.md) - put a link
   * [add_link](reference/add_link.md) - create an internal link
   * [set_link](reference/set_link.md) - set internal link destination
-  
+
 #### Metadata ####
   * [set_author](reference/set_author.md) - set the document author
   * [set_compression](reference/set_compression.md) - turn compression on or off
@@ -68,6 +68,11 @@
 
 #### Imaging ####
   * [image](reference/image.md) - output an image
+
+
+#### Barcodes ####
+  * [interleaved2of5](reference/interleaved2of5.md) - add a new barcode with Interleaved 2 of 5 schema
+  * [code39](reference/code39.md) - add a new barcode with C39 schema
 
 
 ## Original FPDF API ##
@@ -124,7 +129,7 @@ The contents of this section are the same as those of the previous section excep
   * [write](reference/write.md) - print flowing text
 
 ## Additional API ##
-  
+
 These features are not available in the original FPDF and were implemented after forking.
 
   * [dashed_line](reference/dashed_line.md) - draw a dashed line
