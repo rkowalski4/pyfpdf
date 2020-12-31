@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>fpdf.util.syntax</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="fpdf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pyfpdf: FPDF for Python</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="fpdf-module.html">Package&nbsp;fpdf</a> ::
+        <a href="fpdf.util-module.html" onclick="show_private();">Package&nbsp;util</a> ::
+        Module&nbsp;syntax
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="fpdf.util.syntax-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module syntax</h1><p class="nomargin-top"><span class="codelink"><a href="fpdf.util.syntax-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+PDF Syntax Helpers
+
+Functions in this module take variable input and produce PDF Syntax features
+as they are described in the Adobe PDF Reference Manual, found
+[here](http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf).
+
+Most of what happens in a PDF happens in objects, which are formatted like so:
+&lt;pre&gt;
+3 0 obj
+&lt;&lt;/Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/Contents 4 0 R&gt;&gt;
+endobj
+&lt;/pre&gt;
+
+The first line says that this is the third object in the structure of the
+document.
+
+There are 8 kinds of objects (Adobe Reference, 51):
+* Boolean values
+* Integer and real numbers
+* Strings
+* Names
+* Arrays
+* Dictionaries
+* Streams
+* The null object
+
+The `&lt;&lt;` in the second line and the `&gt;&gt;` in the line preceding `endobj` denote
+that it is a dictionary object. Dictionaries map Names to other objects.
+
+Names are the strings preceded by '/', valid Names do not have to start with a
+capital letter, they can be any ascii characters, # and two characters can
+escape non-printable ascii characters, described on page 57.
+
+`3 0 obj` means what follows here is the third object, but the name Type
+(represented here by `/Type`) is mapped to an indirect object reference:
+`0 obj` vs `0 R`. (Page 64 of Adobe Reference)
+
+The structure of this data, in python/dict form, is thus:
+third_obj = {
+  pdf_name('Type'): pdf_name('Page'),
+  pdf_name('Parent'): iobj_ref(1),
+  pdf_name('Resources'): iobj_ref(2),
+  pdf_name('Contents'): iobj_ref(4),
+}
+
+`collections.OrderedDict` is used because ultimately to test the accuracy of
+the documents created, order of the fields matters even though it probably
+doesn't in the Adobe Specification.
+
+Some additional notes:
+
+Streams are of the form:
+
+&lt;pre&gt;
+4 0 obj
+&lt;&lt;/Filter /ASCIIHexDecode /Length 22&gt;&gt;
+stream
+68656c6c6f20776f726c64
+endstream
+endobj
+&lt;/pre&gt;
+
+In this case, the ASCIIHexDecode filter is used because
+&quot;68656c6c6f20776f726c64&quot; is &quot;hello world&quot; in ascii, and 22 is the length of
+that string.
+
+As of this writing, I am not sure how length is actually calculated, so this
+remains something to be looked into.
+
+</pre>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="clear_empty_fields"></a><span class="summary-sig-name">clear_empty_fields</span>(<span class="summary-sig-arg">d</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fpdf.util.syntax-pysrc.html#clear_empty_fields">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fpdf.util.syntax-module.html#create_dictionary_string" class="summary-sig-name">create_dictionary_string</a>(<span class="summary-sig-arg">dict_</span>,
+        <span class="summary-sig-arg">open_dict</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">&lt;&lt;</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">close_dict</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">&gt;&gt;</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">field_join</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">key_value_join</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"> </code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">has_empty_fields</span>=<span class="summary-sig-default">False</span>)</span><br />
+      format ordered dictionary as PDF dictionary</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fpdf.util.syntax-pysrc.html#create_dictionary_string">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="create_list_string"></a><span class="summary-sig-name">create_list_string</span>(<span class="summary-sig-arg">list_</span>)</span><br />
+      format list of strings as PDF array</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fpdf.util.syntax-pysrc.html#create_list_string">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="create_name"></a><span class="summary-sig-name">create_name</span>(<span class="summary-sig-arg">name</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fpdf.util.syntax-pysrc.html#create_name">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="create_stream"></a><span class="summary-sig-name">create_stream</span>(<span class="summary-sig-arg">stream</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fpdf.util.syntax-pysrc.html#create_stream">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="iobj_ref"></a><span class="summary-sig-name">iobj_ref</span>(<span class="summary-sig-arg">n</span>)</span><br />
+      format an indirect PDF Object reference from its id number</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fpdf.util.syntax-pysrc.html#iobj_ref">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'fpdf.util'"><code class="variable-quote">'</code><code class="variable-string">fpdf.util</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="py3k"></a><span class="summary-name">py3k</span> = <code title="False">False</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="create_dictionary_string"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">create_dictionary_string</span>(<span class="sig-arg">dict_</span>,
+        <span class="sig-arg">open_dict</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">&lt;&lt;</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">close_dict</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">&gt;&gt;</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">field_join</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">key_value_join</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"> </code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">has_empty_fields</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fpdf.util.syntax-pysrc.html#create_dictionary_string">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>format ordered dictionary as PDF dictionary</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dict_</code></strong> - dictionary of values to render</li>
+        <li><strong class="pname"><code>open</code></strong> - string to open PDF dictionary</li>
+        <li><strong class="pname"><code>close</code></strong> - string to close PDF dictionary</li>
+        <li><strong class="pname"><code>field_join</code></strong> - string to join fields with</li>
+        <li><strong class="pname"><code>key_value_join</code></strong> - string to join key to value with</li>
+        <li><strong class="pname"><code>has_empty_fields</code></strong> - whether or not to clear_empty_fields first.</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="fpdf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pyfpdf: FPDF for Python</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec 31 14:28:49 2020
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

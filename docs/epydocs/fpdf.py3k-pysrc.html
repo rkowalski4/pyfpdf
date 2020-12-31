@@ -99,41 +99,55 @@ fpdf.template.PY3K" class="py-name" href="#" onclick="return doclink('link-1', '
 <a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt class="py-name">update</tt><tt class="py-op">(</tt><tt class="py-name">fn</tt><tt class="py-op">)</tt> </tt>
 <a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt class="py-name">hexdigest</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 </div><a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
-<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-comment"># why is this next part like this?</tt> </tt>
-<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-keyword">from</tt> <tt class="py-name">HTMLParser</tt> <tt class="py-keyword">import</tt> <tt class="py-name">HTMLParser</tt> </tt>
-<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-keyword">except</tt> <tt class="py-name">ImportError</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
-<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module fpdf.html=fpdf.html-module.html"><a title="fpdf.html" class="py-name" href="#" onclick="return doclink('link-2', 'html', 'link-2');">html</a></tt><tt class="py-op">.</tt><tt class="py-name">parser</tt> <tt class="py-keyword">import</tt> <tt class="py-name">HTMLParser</tt> </tt>
-<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt>
-<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt id="link-3" class="py-name"><a title="fpdf.fpdf.PY3K
+<a name="unescape2"></a><div id="unescape2-def"><a name="L29"></a><tt class="py-lineno">29</tt> <a class="py-toggle" href="#" id="unescape2-toggle" onclick="return toggle('unescape2');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fpdf.py3k-module.html#unescape2">unescape2</a><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="unescape2-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="unescape2-expanded"><a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">HTMLParser</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">unescape</tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="unescape3"></a><div id="unescape3-def"><a name="L32"></a><tt class="py-lineno">32</tt> <a class="py-toggle" href="#" id="unescape3-toggle" onclick="return toggle('unescape3');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fpdf.py3k-module.html#unescape3">unescape3</a><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="unescape3-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="unescape3-expanded"><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module fpdf.html=fpdf.html-module.html"><a title="fpdf.html" class="py-name" href="#" onclick="return doclink('link-2', 'html', 'link-2');">html</a></tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-3" class="py-name"><a title="fpdf.html" class="py-name" href="#" onclick="return doclink('link-3', 'html', 'link-2');">html</a></tt><tt class="py-op">.</tt><tt class="py-name">unescape</tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-name">unescape</tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name" targets="Function fpdf.py3k.unescape3()=fpdf.py3k-module.html#unescape3"><a title="fpdf.py3k.unescape3" class="py-name" href="#" onclick="return doclink('link-4', 'unescape3', 'link-4');">unescape3</a></tt> <tt class="py-keyword">if</tt> <tt id="link-5" class="py-name"><a title="fpdf.fpdf.PY3K
 fpdf.html.PY3K
 fpdf.image_parsing.PY3K
 fpdf.php.PY3K
 fpdf.py3k.PY3K
-fpdf.template.PY3K" class="py-name" href="#" onclick="return doclink('link-3', 'PY3K', 'link-0');">PY3K</a></tt><tt class="py-op">:</tt> </tt>
-<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-name">basestring</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt> </tt>
-<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-name">unicode</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt> </tt>
-<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-name">ord</tt> <tt class="py-op">=</tt> <tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt> </tt>
-<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
-<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-name">basestring</tt> <tt class="py-op">=</tt> <tt class="py-name">basestring</tt> </tt>
-<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">    <tt class="py-name">unicode</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt> </tt>
-<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-name">ord</tt> <tt class="py-op">=</tt> <tt class="py-name">ord</tt> </tt>
+fpdf.template.PY3K" class="py-name" href="#" onclick="return doclink('link-5', 'PY3K', 'link-0');">PY3K</a></tt> <tt class="py-keyword">else</tt> <tt id="link-6" class="py-name" targets="Function fpdf.py3k.unescape2()=fpdf.py3k-module.html#unescape2"><a title="fpdf.py3k.unescape2" class="py-name" href="#" onclick="return doclink('link-6', 'unescape2', 'link-6');">unescape2</a></tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-comment"># why is this next part like this?</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-keyword">from</tt> <tt class="py-name">HTMLParser</tt> <tt class="py-keyword">import</tt> <tt class="py-name">HTMLParser</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-keyword">except</tt> <tt class="py-name">ImportError</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-keyword">from</tt> <tt id="link-7" class="py-name"><a title="fpdf.html" class="py-name" href="#" onclick="return doclink('link-7', 'html', 'link-2');">html</a></tt><tt class="py-op">.</tt><tt class="py-name">parser</tt> <tt class="py-keyword">import</tt> <tt class="py-name">HTMLParser</tt> </tt>
 <a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt>
-<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-comment"># shortcut to bytes conversion (b prefix)</tt> </tt>
-<a name="b"></a><div id="b-def"><a name="L45"></a><tt class="py-lineno">45</tt> <a class="py-toggle" href="#" id="b-toggle" onclick="return toggle('b');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fpdf.py3k-module.html#b">b</a><tt class="py-op">(</tt><tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
-</div><a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">,</tt> <tt class="py-name">basestring</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">"latin1"</tt><tt class="py-op">)</tt> </tt>
-<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">,</tt> <tt class="py-name">int</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-4" class="py-name"><a title="fpdf.fpdf.PY3K
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt id="link-8" class="py-name"><a title="fpdf.fpdf.PY3K
 fpdf.html.PY3K
 fpdf.image_parsing.PY3K
 fpdf.php.PY3K
 fpdf.py3k.PY3K
-fpdf.template.PY3K" class="py-name" href="#" onclick="return doclink('link-4', 'PY3K', 'link-0');">PY3K</a></tt><tt class="py-op">:</tt> </tt>
-<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">bytes</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">s</tt><tt class="py-op">]</tt><tt class="py-op">)</tt>  <tt class="py-comment"># http://bugs.python.org/issue4588</tt> </tt>
-<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
-<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">chr</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
-</div><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+fpdf.template.PY3K" class="py-name" href="#" onclick="return doclink('link-8', 'PY3K', 'link-0');">PY3K</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-name">basestring</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">    <tt class="py-name">unicode</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-name">ord</tt> <tt class="py-op">=</tt> <tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt class="py-name">basestring</tt> <tt class="py-op">=</tt> <tt class="py-name">basestring</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt class="py-name">unicode</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">    <tt class="py-name">ord</tt> <tt class="py-op">=</tt> <tt class="py-name">ord</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-comment"># shortcut to bytes conversion (b prefix)</tt> </tt>
+<a name="b"></a><div id="b-def"><a name="L54"></a><tt class="py-lineno">54</tt> <a class="py-toggle" href="#" id="b-toggle" onclick="return toggle('b');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fpdf.py3k-module.html#b">b</a><tt class="py-op">(</tt><tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+</div><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">,</tt> <tt class="py-name">basestring</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">"latin1"</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">,</tt> <tt class="py-name">int</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-9" class="py-name"><a title="fpdf.fpdf.PY3K
+fpdf.html.PY3K
+fpdf.image_parsing.PY3K
+fpdf.php.PY3K
+fpdf.py3k.PY3K
+fpdf.template.PY3K" class="py-name" href="#" onclick="return doclink('link-9', 'PY3K', 'link-0');">PY3K</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">bytes</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">s</tt><tt class="py-op">]</tt><tt class="py-op">)</tt>  <tt class="py-comment"># http://bugs.python.org/issue4588</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">chr</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -171,7 +185,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu May 18 07:14:41 2017
+    Generated by Epydoc 3.0.1 on Thu Dec 31 14:28:50 2020
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
