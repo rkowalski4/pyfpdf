@@ -1,11 +1,11 @@
-### 
+###
 # MkDocs Configuration File.
-# 
+#
 # To build these docs, change to base of repository and run `mkdocs build` and
 # docs will be build into site_dir variable value in this file.
-# 
+#
 # Alternatively, there is a script in the `scripts` folder for convenience.
-### 
+###
 site_name: PyFPDF
 site_url: https://alexanderankin.github.io/pyfpdf/
 repo_url: https://github.com/alexanderankin/pyfpdf
@@ -35,6 +35,7 @@ pages:
   - 'alias_nb_pages':      'reference/alias_nb_pages.md'
   - 'cell':                'reference/cell.md'
   - 'close':               'reference/close.md'
+  - 'code39':              'reference/code39.md'
   - 'dashed_line':         'reference/dashed_line.md'
   - 'ellipse':             'reference/ellipse.md'
   - 'error':               'reference/error.md'
@@ -45,6 +46,7 @@ pages:
   - 'get_y':               'reference/get_y.md'
   - 'header':              'reference/header.md'
   - 'image':               'reference/image.md'
+  - 'interleaved2of5':     'reference/interleaved2of5.md'
   - 'load_resource':       'reference/load_resource.md'
   - 'line':                'reference/line.md'
   - 'link':                'reference/link.md'
