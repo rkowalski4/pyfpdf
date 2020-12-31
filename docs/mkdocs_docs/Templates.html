@@ -11,14 +11,14 @@
       
       
       
-        <link rel="canonical" href="https://alexanderankin.github.io/pyfpdf/index.html">
+        <link rel="canonical" href="https://alexanderankin.github.io/pyfpdf/Templates.html">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
     
     
       
-        <title>Project Home - PyFPDF</title>
+        <title>Templates - PyFPDF</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#fpdf-for-python" class="md-skip">
+        <a href="#introduction" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Project Home
+              Templates
             
           </span>
         </div>
@@ -197,63 +197,11 @@
       
 
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Project Home
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="index.html" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="index.html" class="md-nav__link">
       Project Home
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#main-features" class="md-nav__link">
-    Main features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support" class="md-nav__link">
-    Support
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -343,11 +291,20 @@
       
 
 
+  
 
-  <li class="md-nav__item">
-    <a href="Templates.html" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="Templates.html" class="md-nav__link md-nav__link--active">
       Templates
     </a>
+    
   </li>
 
     
@@ -1139,35 +1096,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#main-features" class="md-nav__link">
-    Main features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support" class="md-nav__link">
-    Support
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1178,60 +1106,129 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/alexanderankin/pyfpdf/edit/master/mkdocs_docs/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/alexanderankin/pyfpdf/edit/master/mkdocs_docs/Templates.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="fpdf-for-python">FPDF for Python</h1>
-<p><a href='https://github.com/alexanderankin/pyfpdf'><img src='https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png' alt='Fork me on GitHub' border='0' align='right' /></a></p>
-<p><em>PyFPDF</em> is a library for PDF document generation under Python, ported from PHP (see <a href="http://www.fpdf.org/">FPDF</a>: "Free"-PDF, a well-known PDFlib-extension replacement with many examples, scripts and derivatives).</p>
-<p><strong>Latest Released Version: fpdf2==2.0.0 (May 4th, 2017)*  *  -</strong>Current Development Version: 2.0.1**</p>
-<h2 id="main-features">Main features</h2>
+                <h1 id="introduction">Introduction</h1>
+<p>Templates are predefined documents (like invoices, tax forms, etc.), where each element (text, lines, barcodes, etc.) has a fixed position (x1, y1, x2, y2), style (font, size, etc.) and a default text.</p>
+<p>This elements can act as placeholders, so the program can change the default text "filling" the document.</p>
+<p>Also, the elements can be defined in a CSV file or in a database, so the user can easily adapt the form to his printing needs.</p>
+<p>A template is used like a dict, setting its items' values.</p>
+<h1 id="details-template-definition">Details - Template definition</h1>
+<p>A template is composed of a header and a list of elements.</p>
+<p>The header contains the page format, title of the document and other metadata.</p>
+<p>Elements have the following properties (columns in a CSV, fields in a database):</p>
 <ul>
-<li>Easy to use (and easy to extend)</li>
-<li>Small and compact code, useful for testing new features and teaching</li>
-<li>Many simple examples and scripts available in many languages</li>
-<li>PIL Integration for images (via Pillow)</li>
-<li>No installation, no compilation or other libraries (DLLs) required</li>
+<li>name: placeholder identification</li>
+<li>type: 'T': texts, 'L': lines, 'I': images, 'B': boxes, 'BC': barcodes (Interleaved
+    2 of 5) - alias for BCI25, 'BCI25': barcodes (Interleaved 2 of 5), 'BCC39': barcodes
+    (C39),</li>
+<li>x1, y1, x2, y2: top-left, bottom-right coordinates (in mm)</li>
+<li>font: e.g. "Arial"</li>
+<li>size: text size in points, e.g. 10</li>
+<li>bold, italic, underline: text style (non-empty to enable)</li>
+<li>foreground, background: text and fill colors, e.g. 0xFFFFFF</li>
+<li>align: text alignment, 'L': left, 'R': right, 'C': center</li>
+<li>text: default string, can be replaced at runtime</li>
+<li>priority: Z-order</li>
+<li>multiline: None for single line (default), True to for multicells (multiple lines), False trims to exactly fit the space defined</li>
 </ul>
-<p>This repository is a fork of the library's <a href="http://www.fpdf.org/dl.php?id=94">original port by Max Pat</a>, with the following enhancements:</p>
+<h1 id="how-to-create-a-template">How to create a template</h1>
+<p>A template can be created in 3 ways:</p>
 <ul>
-<li>Python 2.7 to 3.5+ support</li>
-<li><a href="Unicode.html">Unicode</a> (UTF-8) TrueType font subset embedding (Central European, Cyrillic, Greek, Baltic, Thai, Chinese, Japanese, Korean, Hindi and almost any other language in the world) *<em>New!</em>  * based on <a href="http://www.fpdf.org/en/script/script91.php">sFPDF</a> LGPL3 PHP version from <a href="mailto:ian@bpm1.com?subject=sFPDF">Ian Back</a></li>
-<li>Improved installers (Python wheel) support</li>
-<li>Barcode I2of5 and code39, QR code coming soon ...</li>
-<li>PNG, GIF and JPG support (including transparency and alpha channel) <strong>New!</strong></li>
-<li>Exceptions support, other minor fixes, improvements and PEP8 code cleanups</li>
-<li>Port of the <a href="Tutorial.html">Tutorial</a> and <a href="reference">ReferenceManual</a>  (Spanish translation available)</li>
+<li>By defining everything manually in a hardcoded way</li>
+<li>By using a template definition in a CSV document and parsing the CSV with Template.parse_dict()</li>
+<li>By defining the template in a database (this applies to [Web2Py] (Web2Py.md) integration)</li>
 </ul>
-<p>FPDF original features:</p>
+<p>Note the following, the definition of a template will contain the elements. The header will be given during instantiation (except for the database method).</p>
+<h1 id="example-hardcoded">Example - Hardcoded</h1>
+<pre><code class="language-python">
+from fpdf import Template
+
+#this will define the ELEMENTS that will compose the template.
+elements = [
+    { 'name': 'company_logo', 'type': 'I', 'x1': 20.0, 'y1': 17.0, 'x2': 78.0, 'y2': 30.0, 'font': None, 'size': 0.0, 'bold': 0, 'italic': 0, 'underline': 0, 'foreground': 0, 'background': 0, 'align': 'I', 'text': 'logo', 'priority': 2, },
+    { 'name': 'company_name', 'type': 'T', 'x1': 17.0, 'y1': 32.5, 'x2': 115.0, 'y2': 37.5, 'font': 'Arial', 'size': 12.0, 'bold': 1, 'italic': 0, 'underline': 0, 'foreground': 0, 'background': 0, 'align': 'I', 'text': '', 'priority': 2, },
+    { 'name': 'box', 'type': 'B', 'x1': 15.0, 'y1': 15.0, 'x2': 185.0, 'y2': 260.0, 'font': 'Arial', 'size': 0.0, 'bold': 0, 'italic': 0, 'underline': 0, 'foreground': 0, 'background': 0, 'align': 'I', 'text': None, 'priority': 0, },
+    { 'name': 'box_x', 'type': 'B', 'x1': 95.0, 'y1': 15.0, 'x2': 105.0, 'y2': 25.0, 'font': 'Arial', 'size': 0.0, 'bold': 1, 'italic': 0, 'underline': 0, 'foreground': 0, 'background': 0, 'align': 'I', 'text': None, 'priority': 2, },
+    { 'name': 'line1', 'type': 'L', 'x1': 100.0, 'y1': 25.0, 'x2': 100.0, 'y2': 57.0, 'font': 'Arial', 'size': 0, 'bold': 0, 'italic': 0, 'underline': 0, 'foreground': 0, 'background': 0, 'align': 'I', 'text': None, 'priority': 3, },
+    { 'name': 'barcode', 'type': 'BC', 'x1': 20.0, 'y1': 246.5, 'x2': 140.0, 'y2': 254.0, 'font': 'Interleaved 2of5 NT', 'size': 0.75, 'bold': 0, 'italic': 0, 'underline': 0, 'foreground': 0, 'background': 0, 'align': 'I', 'text': '200000000001000159053338016581200810081', 'priority': 3, },
+]
+
+#here we instantiate the template and define the HEADER
+f = Template(format=&quot;A4&quot;, elements=elements,
+             title=&quot;Sample Invoice&quot;)
+f.add_page()
+
+#we FILL some of the fields of the template with the information we want
+#note we access the elements treating the template instance as a &quot;dict&quot;
+f[&quot;company_name&quot;] = &quot;Sample Company&quot;
+f[&quot;company_logo&quot;] = &quot;pyfpdf/tutorial/logo.png&quot;
+
+#and now we render the page
+f.render(&quot;./template.pdf&quot;)
+
+</code></pre>
+<p>See template.py or [Web2Py] (Web2Py.md) for a complete example.</p>
+<h1 id="example-elements-defined-in-csv-file">Example - Elements defined in CSV file</h1>
+<p>You define your elements in a CSV file "mycsvfile.csv"
+that will look like:</p>
+<pre><code>line0;T;20.0;13.0;190.0;13.0;times;10.0;0;0;0;0;65535;C;;0
+line1;T;20.0;67.0;190.0;67.0;times;10.0;0;0;0;0;65535;C;;0
+name0;T;21;14;104;25;times;16.0;0;0;0;0;0;C;;2
+title0;T;64;26;104;30;times;10.0;0;0;0;0;0;C;;2
+</code></pre>
+<p>Remember that each line represents an element and each field represents one of the properties of the element in the following order:
+('name','type','x1','y1','x2','y2','font','size','bold','italic','underline','foreground','background','align','text','priority', 'multiline')</p>
+<p>Then you can use the file like this:</p>
+<pre><code class="language-python">def test_template():
+    f = Template(format=&quot;A4&quot;,
+                 title=&quot;Sample Invoice&quot;)
+    f.parse_csv(&quot;mycsvfile.csv&quot;)
+    f.add_page()
+    f[&quot;company_name&quot;] = &quot;Sample Company&quot;
+    response.headers['Content-Type'] = 'application/pdf'
+    return f.render(&quot;./template.pdf&quot;, dest='S')
+
+</code></pre>
+<h1 id="designer-gui-tool-to-design-templates">Designer - GUI tool to design templates</h1>
+<p>This library includes a program <code>designer.py</code> to visually modify the designs of a template (e.g., an invoice, report, etc.).</p>
+<p>Input files are CSV spreadsheets describing the design (see above).
+Once opened, the designer displays the template with the elements as how they will be located.</p>
+<p>The toolbar has buttons for:</p>
 <ul>
-<li>Choice of measurement unit, page format and margins</li>
-<li>Page header and footer management</li>
-<li>Automatic page break</li>
-<li>Automatic line break and text justification</li>
-<li>Image, colors and links support</li>
-<li>Page compression</li>
-<li>Extensive <a href="http://www.fpdf.org/en/tutorial/index.php">Tutorial</a> and complete online <a href="http://www.fpdf.org/en/doc/index.php">documentation</a></li>
+<li>Open, save and print (preview) template</li>
+<li>Add, delete and duplicate</li>
+<li>Find items by name or by text</li>
+<li>Find and replace (modify selected elements, mainly move x/y)</li>
 </ul>
-<h2 id="installation">Installation</h2>
-<ul>
-<li>Using <a href="https://pypi.python.org/pypi/fpdf2">PyPI</a><ul>
-<li>Become super user if necessary: <code>sudo su</code></li>
-<li><code>pip install fpdf2</code></li>
-</ul>
-</li>
-<li>From source:<ul>
-<li>Clone the repository: <code>git clone --depth 1 --branch master https://github.com/alexanderankin/pyfpdf.git</code></li>
-<li>Optional: Check out the version you want, <code>git tag -n</code></li>
-<li>This will require Pillow and other dependencies to be satisfied, or it will download the sources of those and compile those. On ubuntu this requires the following header packages: <code>sudo apt-get install libjpeg-dev libpython-dev zlib1g-dev # libpython3.3-dev #(if necessary)</code></li>
-<li>Run <code>python setup.py install</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="support">Support</h2>
-<p>For community support, please feel free to file an <a href="https://github.com/reingart/pyfpdf/issues">issue</a>. Please be sure to tag recently active maintainers from other issues, as the <a href="https://github.com/alexanderankin/pyfpdf/pulls">repository of this library</a> as of this writing is a fork and does not accept issues (only pull requests).</p>
+<p>Over an element, double left click opens a dialog to edit its text and right click opens a dialog with the properties window.
+You can select multiple items by holding down shift and left clicking them.
+To move the elements you can use the arrow keys or drag the elements.</p>
+<p>To run it, just go to the directory and run:</p>
+<pre><code>python designer.py
+</code></pre>
+<p>(you need to have wx installed).</p>
+<p>If you are having problems making it work, change the imports on designer.py file to the following (it should be fixed in the next version):</p>
+<pre><code class="language-python">import os, sys
+import wx
+import wx.lib
+import wx.lib.ogl as ogl
+try:
+    from wx.lib.wordwrap import wordwrap
+except ImportError:
+    wordwrap = lambda text, width, dc: text
+
+try:
+    from template import Template
+except ImportError:
+    # we are frozen?
+    from fpdf.template import Template
+</code></pre>
+<p>As an example, the following screenshot shows the Visual Designer, with the sample invoice.csv file open and 'logo' element selected, editing its properties:</p>
+<p><img alt="http://pyfpdf.googlecode.com/files/designer.png" src="http://pyfpdf.googlecode.com/files/designer.png" /></p>
                 
               
               
@@ -1250,14 +1247,28 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
+          <a href="Development.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Development
+              </div>
+            </div>
+          </a>
         
-          <a href="Tutorial.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="Unicode.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Tutorial
+                Unicode
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
